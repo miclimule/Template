@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Gestion des Personnes</title>
+</head>
+<body>
+    <h1>Gestion <span th:text="${entitie}"></span></h1>
+	<hr>
+	<h2>Form</h2>
+	<form action="#">
+		<p th:each="field : ${fields}">
+			<label th:text="${field}"></label><br>
+			<input type="text" >
+		</p>
+		<input type="submit" value="Valider">
+	</form>
+	<hr>
+	<h2>Liste</h2>
+	<table>
+        <tr>
+            <th th:each="field : ${fields}" th:text="${field}"></th>
+        </tr>
+        <tr th:each="item : ${items}">
+			<td th:each="field : ${fields}" th:text="${item[field]}"></td>
+			<td><a href="">Supprimer</a></td>
+			<td><a href="">Modifier</a></td>
+        </tr>
+    </table>
+
+</body>
+</html>
