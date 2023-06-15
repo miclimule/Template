@@ -44,19 +44,26 @@ public class CrudControl {
         return fieldsList;
     }
     
-    public void findByName() {
-    	
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	public List<Object> findById(String nameClass , long id) throws ClassNotFoundException, InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException {
+    	Class<?> clazz = Class.forName("com.example.demo.model."+nameClass);
+    	Object instance = clazz.getDeclaredConstructor().newInstance();
+    	return db.query("select * from "+nameClass+" where id="+id, new BeanPropertyRowMapper(instance.getClass()));
+
     }
     
-    public void findById() {
-    	
-    }
-    
-    public void deleteById() {
-    	
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+	public void deleteById(String nameClass , long id) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException {
+    	Class<?> clazz = Class.forName("com.example.demo.model."+nameClass);
+    	Object instance = clazz.getDeclaredConstructor().newInstance();
+    	db.query("delete from "+nameClass+" where id="+id, new BeanPropertyRowMapper(instance.getClass()));
     }
     
     public void insert() {
+    	
+    }
+    
+    public void update() {
     	
     }
 
