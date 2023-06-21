@@ -29,44 +29,8 @@
 	<div th:replace="~{test :: #sidebar}"></div>
 	<section id="main-content">
       <section class="wrapper">
-      <h2><i class="fa fa-angle-right"></i>Formulaire <span th:text="${entitie}"></span></h2>
-      
-      <div class="row mb">
-          <div class="content-panel">
-            <div class="form-panel">
-            	<div th:if="${entitie == 'Evenement' or entitie == 'Artiste' or entitie == 'Lieu'}">
-	        		<h3 class="mb">Formulaire <span th:text="${entitie}"></span></h3>
-			        <form action="/insertImg" method="post" class="form-inline" enctype="multipart/form-data">
-						<input type="hidden" th:value="${entitie}" name="entitie">
-						<div th:each="field : ${infos}" class="form-group">
-							<div th:if="${field.getField() != 'Img'}">
-								<p th:text="${field.getField()}"></p>
-								<input th:type="${field.getType()}" class="form-control" th:value="${field.getValue()}" name="data"><br>
-							</div>
-						</div><br>
-						
-							<input type="file" class="form-control" name="img">
-							<input type="submit" class="btn btn-theme" value="Valider">
-						
-					</form>
-            	</div>
-            	<div th:if="${entitie != 'Evenement' and entitie != 'Artiste' and entitie != 'Lieu'}">
-				    <h3 class="mb">Formulaire <span th:text="${entitie}"></span></h3>
-			        <form action="/insert" method="post" class="form-inline">
-						<input type="hidden" th:value="${entitie}" name="entitie">
-						<div th:each="field : ${infos}" class="form-group">
-							<p th:text="${field.getField()}"></p>
-							<input th:type="${field.getType()}" class="form-control" th:value="${field.getValue()}" name="data"><br>
-						</div><br>
-						<input type="submit" class="btn btn-theme" value="Valider">
-						
-					</form>
-				</div>
-            </div>
-        </div>    
-      </div>
 		
-	  <h2><i class="fa fa-angle-right"></i>Liste <span th:text="${entitie}"></span></h2>
+	  <h2><i class="fa fa-angle-right"></i>State</h2>
       	<div class="row mb">
       		<div class="content-panel">
       			<div class="adv-table" style="padding-left: 25px;padding-right: 25px;">
@@ -75,8 +39,6 @@
 				        <thead>
 					        <tr>
 					            <th th:each="field : ${fields}" th:text="${field}" class="hidden-phone"></th>
-					            <th>Supprimer</th>
-					            <th>Modifier</th>
 					        </tr>
 				        </thead>
 				        
@@ -90,8 +52,6 @@
 										<span th:utext="${item[field]}"></span>
 									</div>
 								</td>
-								<td><a th:href="@{'/supprimer?id=' + ${item.getId()} + '&name=' + ${entitie}}">Supprimer</a></td>
-					    		<td><a th:href="@{'/modifier?id=' + ${item.getId()} + '&name=' + ${entitie}}">Modifier</a></td>
 					        </tr>
 				        </tbody>
 				        

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+     <meta charset="utf-8">
+	 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	 <meta name="description" content="">
+	 <meta name="author" content="Dashboard">
+	 <meta name="keyword" content="list , event">
+	 <title>list</title>
+	
+	 <!-- Favicons --><script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	 <link href="img/favicon.png" rel="icon">
+	 <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+	
+	 <!-- Bootstrap core CSS -->
+	 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	 <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	 <!--external css-->
+	 <link href="lib/font-awesome/css/font-awesome.css" rel="stylesheet" />
+	 <link rel="stylesheet" type="text/css" href="lib/bootstrap-fileupload/bootstrap-fileupload.css" />
+	 <link rel="stylesheet" type="text/css" href="lib/bootstrap-datepicker/css/datepicker.css" />
+	 <link rel="stylesheet" type="text/css" href="lib/bootstrap-daterangepicker/daterangepicker.css" />
+	 <link rel="stylesheet" type="text/css" href="lib/bootstrap-timepicker/compiled/timepicker.css" />
+	 <link rel="stylesheet" type="text/css" href="lib/bootstrap-datetimepicker/datertimepicker.css" />
+	 <!-- Custom styles for this template -->
+	 <link href="css/style.css" rel="stylesheet">
+	 <link href="css/style-responsive.css" rel="stylesheet">
+
+	 <style type="text/css">
+	 
+	 @font-face {
+	  font-family: 'Katahdin Round';
+	  src: url('Katahdin Round.otf') format('truetype');
+	}
+	 
+	 
+	 </style>
+</head>
+<body>
+
+
+	<div th:replace="~{test :: #sidebar}"></div>
+	<section id="main-content">
+      <section class="wrapper">
+      
+      
+      
+		
+	  <h2><i class="fa fa-angle-right"></i>Affiche <span th:text="${entitie}"></span> <button id="download-button" class="btn btn-theme">Convertir en PDF</button></h2>
+      	<div class="row mb" style="width: 90%; padding-left: 25px;">
+      		<div class="content-panel" style="width: 100%; z-index: -10" id="affiche">
+      			<div class="card-group" style="width: 100%;" th:each="lieu : ${lieu}">
+      				<div class="card" th:each="item : ${evenement}" style="width: 100%; height: 100%; border: none;">
+      					<img th:alt="${item.getName()}" style="
+      						width: 100%;
+      						height: 400px;
+      						border-top-left-radius: 25px;
+      						border-top-right-radius: 25px;
+      						object-fit: cover;
+      					" 
+      					class="card-img-top" th:src="'data:image/jpeg;base64,' + ${lieu.getImg()}">
+      					<div class="card-body">
+      						<h1 style="
+      							text-align: center;
+      							font-size: xx-large;
+      							letter-spacing: 2px;
+      							text-decoration: blink;
+      							font-family: Katahdin Round;	
+      							color: black;
+      						"
+      						th:text="${item.getName()}"><strong>Title</strong></h1>
+      						<h2
+      							style="
+      								text-align: center;
+	      							font-size: large;
+	      							letter-spacing: 1px;
+	      							text-decoration: blink;
+	      							font-family: Katahdin Round;	
+	      							color: black;
+      							"
+      						>
+      						<span style="font-family: sans-serif;">Le</span> <span th:text="${lieu.getDateevenement()}"></span> <span style="font-family: sans-serif;">a</span> <span th:text="${lieu.getHeure()}">8</span>h:<span th:text="${lieu.getMinute()}"></span></h2>
+      						 
+      						<h2
+      							style="
+      								text-align: center;
+	      							font-size: large;
+	      							letter-spacing: 1px;
+	      							text-decoration: blink;
+	      							font-family: Katahdin Round;	
+	      							color: black;
+      							"
+      						>
+      						<span style="font-family: sans-serif;">au</span> <span th:text="${lieu.getAddress()}">Villa la villa</span></h2>
+      						<h2
+      							style="
+      								text-align: center;
+	      							font-size: large;
+	      							letter-spacing: 1px;
+	      							text-decoration: blink;
+	      							font-family: Katahdin Round;	
+	      							color: black;
+      							"
+      							th:each="item : ${billet}" 
+      						>
+      						<span style="font-family: sans-serif;">Ticket (<span th:text="${item.getCategorie()}"></span>) : </span> <span th:text="${item.getPrix()}"></span> $</h2>
+      						<br>
+      						<h2
+      							style="
+      								text-align: center;
+	      							font-size: x-large;
+	      							letter-spacing: 1px;
+	      							text-decoration: blink;
+	      							font-family: Katahdin Round;	
+	      							color: black;
+      							"
+      						><span>Artiste</span></h2>
+      						<div style="display: flex;align-items: center;justify-content: center;">
+	      						<div class="card-group" th:each="item : ${artist}" style="width: 200px;">
+	      							<div class="card" style="width: 200px;border: none;"> 
+	      								<img th:alt="${item.getNom()}" style="
+				      						width: 200px;
+				      						height: 100px;
+				      						border-top-left-radius: 25px;
+				      						border-top-right-radius: 25px;
+				      						object-fit: cover;
+				      					" 
+				      					class="card-img-top" th:src="'data:image/jpeg;base64,' + ${item.getImg()}">
+				      					<h2
+			      							style="
+			      								text-align: center;
+				      							font-size: large;
+				      							letter-spacing: 1px;
+				      							text-decoration: blink;
+				      							font-family: Katahdin Round;	
+				      							color: black;
+			      							"
+			      						>
+			      						<span th:text=${item.getNom()}></span></h2>
+			      						<h2
+			      							style="
+			      								text-align: center;
+				      							font-size: large;
+				      							letter-spacing: 1px;
+				      							text-decoration: blink;
+				      							font-family: Katahdin Round;	
+				      							color: black;
+			      							"
+			      						>
+			      						<span style="font-family: sans-serif;">Duree : </span> <span th:text="${item.getDuree()}"></span> h </h2>
+	      							</div>
+	      						</div>
+      						</div>
+      						
+      						
+      						<br><br>
+      						<div style="height: 10vh; 
+  									overflow: hidden; width: 100%;">
+      							<img th:alt="${item.getName()}" style="
+		      						width: 100%; /* Largeur de l'image à 100% du conteneur */
+								    height: 100%; /* Hauteur de l'image à 100% du conteneur */
+								    object-fit: cover;
+		      						border-bottom-left-radius: 25px;
+		      						border-bottom-right-radius: 25px;
+		      					" 
+		      					class="card-img-top" th:src="'data:image/jpeg;base64,' + ${lieu.getImg()}">
+      						</div>
+      						
+      					</div>
+      				</div>
+      			</div>
+      		</div>
+      	</div>
+      	
+		
+      </section>
+    </section>
+      
+      
+      
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script type="text/javascript" language="javascript" src="lib/advanced-datatable/js/jquery.js"></script>
+  <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+  <script class="include" type="text/javascript" src="lib/jquery.dcjqaccordion.2.7.js"></script>
+  <script src="lib/jquery.scrollTo.min.js"></script>
+  <script src="lib/jquery.nicescroll.js" type="text/javascript"></script>
+  <script type="text/javascript" language="javascript" src="lib/advanced-datatable/js/jquery.dataTables.js"></script>
+  <script type="text/javascript" src="lib/advanced-datatable/js/DT_bootstrap.js"></script>
+  <!--common script for all pages-->
+  <script src="lib/common-scripts.js"></script>
+  <!--script for this page-->
+  <script type="text/javascript">
+    /* Formating function for row details */
+    
+
+    $(document).ready(function() {
+      /*
+       * Insert a 'details' column to the table
+       */
+      
+
+      /*
+       * Initialse DataTables, with no sorting on the 'details' column
+       */
+      var oTable = $('#hidden-table-info').dataTable({
+        "aoColumnDefs": [{
+          "bSortable": false,
+          "aTargets": [0]
+        }],
+        "aaSorting": [
+          [1, 'asc']
+        ]
+      });
+
+      /* Add event listener for opening and closing details
+       * Note that the indicator for showing which row is open is not controlled by DataTables,
+       * rather it is done here
+       */
+      
+    });
+  </script>
+  
+    <script>
+			const button = document.getElementById('download-button');
+
+			function generatePDF() {
+				// Choose the element that your content will be rendered to.
+				const element = document.getElementById('affiche');
+				// Choose the element and save the PDF for your user.
+				html2pdf().from(element).save();
+			}
+
+			button.addEventListener('click', generatePDF);
+		</script>
+</body>
+</html>

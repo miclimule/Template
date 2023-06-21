@@ -29,60 +29,26 @@
 	<div th:replace="~{test :: #sidebar}"></div>
 	<section id="main-content">
       <section class="wrapper">
-      <h2><i class="fa fa-angle-right"></i>Formulaire <span th:text="${entitie}"></span></h2>
       
-      <div class="row mb">
-          <div class="content-panel">
-            <div class="form-panel">
-            	<div th:if="${entitie == 'Evenement' or entitie == 'Artiste' or entitie == 'Lieu'}">
-	        		<h3 class="mb">Formulaire <span th:text="${entitie}"></span></h3>
-			        <form action="/insertImg" method="post" class="form-inline" enctype="multipart/form-data">
-						<input type="hidden" th:value="${entitie}" name="entitie">
-						<div th:each="field : ${infos}" class="form-group">
-							<div th:if="${field.getField() != 'Img'}">
-								<p th:text="${field.getField()}"></p>
-								<input th:type="${field.getType()}" class="form-control" th:value="${field.getValue()}" name="data"><br>
-							</div>
-						</div><br>
-						
-							<input type="file" class="form-control" name="img">
-							<input type="submit" class="btn btn-theme" value="Valider">
-						
-					</form>
-            	</div>
-            	<div th:if="${entitie != 'Evenement' and entitie != 'Artiste' and entitie != 'Lieu'}">
-				    <h3 class="mb">Formulaire <span th:text="${entitie}"></span></h3>
-			        <form action="/insert" method="post" class="form-inline">
-						<input type="hidden" th:value="${entitie}" name="entitie">
-						<div th:each="field : ${infos}" class="form-group">
-							<p th:text="${field.getField()}"></p>
-							<input th:type="${field.getType()}" class="form-control" th:value="${field.getValue()}" name="data"><br>
-						</div><br>
-						<input type="submit" class="btn btn-theme" value="Valider">
-						
-					</form>
-				</div>
-            </div>
-        </div>    
-      </div>
 		
 	  <h2><i class="fa fa-angle-right"></i>Liste <span th:text="${entitie}"></span></h2>
       	<div class="row mb">
       		<div class="content-panel">
-      			<div class="adv-table" style="padding-left: 25px;padding-right: 25px;">
-	      			<table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered"  id="hidden-table-info">
+      			<div class="adv-table">
+	      			<table cellpadding="0" cellspacing="0" border="0" class="display table table-bordered" id="hidden-table-info">
 				        
 				        <thead>
 					        <tr>
 					            <th th:each="field : ${fields}" th:text="${field}" class="hidden-phone"></th>
-					            <th>Supprimer</th>
-					            <th>Modifier</th>
+					            <th>.</th>
+					            <th>.</th>
+					            <th>.</th>
 					        </tr>
 				        </thead>
 				        
 				        <tbody>
 					        <tr th:each="item : ${items}" class="grade">
-								<td th:each="field : ${fields}" >
+								<td th:each="field : ${fields}">
 									<div th:if="${field == 'Img'}">
 										<img th:src="'data:image/jpeg;base64,' + ${item[field]}" style="width: 50px;height: 50px" alt="Image">
 									</div>
@@ -90,8 +56,9 @@
 										<span th:utext="${item[field]}"></span>
 									</div>
 								</td>
-								<td><a th:href="@{'/supprimer?id=' + ${item.getId()} + '&name=' + ${entitie}}">Supprimer</a></td>
-					    		<td><a th:href="@{'/modifier?id=' + ${item.getId()} + '&name=' + ${entitie}}">Modifier</a></td>
+								<td><a th:href="@{'/devisdetail?id=' + ${item.getId()}}">Voir devis</a></td>
+								<td><a th:href="@{'/affichedetail?id=' + ${item.getId()}}">Voir affiche</a></td>
+								<td><a th:href="@{'/devisvrai?id=' + ${item.getId()}}">Voir vrai devis</a></td>
 					        </tr>
 				        </tbody>
 				        
